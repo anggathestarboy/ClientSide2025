@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: lightblue;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+
+svg {
+    width: 100%;
+    height: 100%;
+
+}
+
+
+.inputan {
+    position: absolute;
+    z-index: 1000;
+    padding: 20px;
+    border: 3px solid black;
+    border-radius: 10px;
+    background: white;
+    
+     transform: translate(43vw, 40vh);
+     display: none;
+}
+
+.atas {
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid black; */
+    
+}
+
+
+.tutup {
+    background: none;
+    color: red  ;
+    border: none;
+   
+}
+
+
+.pin {
+    fill: red;
+ 
+}
+
+.pin .teksAtas {
+    /* transform: scale(10); */
+    background: red;
+}
