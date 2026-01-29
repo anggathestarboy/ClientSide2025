@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mySvg {
+            background-color: black;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+       
+    </style>
+</head>
+<body>
+    
+    <input type="number" id="inputan">
+
+    
+    <svg class="mySvg" id="mySvg" width="500" height="500" >
+    
+        
+        
+    </svg>
+    
+    
+    <script>
+        let svg = document.getElementById("mySvg");
+        let width = 500;
+        let urlSvg = "http://www.w3.org/2000/svg";
+        let height = 500;
+        let padding = 0;
+        let inputan = document.getElementById("inputan");
+        let data = [20,70,40,100, 50,500];
+        
+        
+        inputan.addEventListener("input", (e) => {
+            let hasil = e.target.value;
+            data.push(Number( hasil));
+            console.log(data)
+            
+            drawGrafik();
+        })
+        
+      
+        
+        
+        function drawGrafik () {
+            
+              
+            svg.innerHTML = ""
+            
+        let max = Math.max(...data);
+        let d = "";
+        
+        
+        data.map((item, i) => {
+                
+        // const x = padding + i * (width - padding / 2) / (data.length - 1);
+        // const y = height - padding - (item / max) * (height - padding * 2)   
+        
+        
+    
+    
+    
+       
+        
+        const x = padding + i * (width - padding / 2 ) / (data.length - 1);
+        const y = height - padding - (item/max) * (height - padding * 2); 
+        
+        
+        
+        d+=i === 0 ? `M ${x} ${y}` : `L ${x} ${y}`
+        
+         
+        
+        })
+        
+            
+                     let garis = document.createElementNS(urlSvg, "path");
+        garis.setAttribute("d", d);
+         
+        garis.setAttribute("stroke", "green")
+        garis.setAttribute("fill", "none")
+        garis.setAttribute("stroke-width", 3)
+       
+      svg.appendChild(garis)
+      
+        console.log(garis)
+        
+        }
+        
+        drawGrafik();
+        
+
+        // console.log(max)
+        
+        
+        
+    </script>
+</body>
+</html>

@@ -12,16 +12,18 @@
 
 <script>
   // 1️⃣ DATA JSON (contoh naik turun)
-  const data = [1000, 100, 20, 50, 40];
+  const data = [10, 30, 20, 50, 40];
 
   // 2️⃣ SETUP SVG
   const svg = document.getElementById("svg");
   const width = 400;
   const height = 200;
-
+  const padding = 10 
 
   // cari nilai tertinggi
   const max = Math.max(...data);
+  
+//   console.log(max)
 
   // 3️⃣ BUAT GARIS
   let d = "";
@@ -31,9 +33,11 @@
     const x = padding + i * (width - padding * 2) / (data.length - 1);
 
     // posisi Y (dibalik supaya ke atas)
-    const y = height - padding - (nilai / max) * (height  * 2);
+    const y = height - padding - (nilai / max) * (height - padding * 2);
 
     d += i === 0 ? `M ${x} ${y}` : ` L ${x} ${y}`;
+    
+    
   });
 
   // 4️⃣ MASUKKAN KE SVG
