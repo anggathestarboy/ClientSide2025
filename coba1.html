@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Grafik SVG Paling Dasar</title>
+</head>
+<body>
+
+<h3>Grafik Naik Turun (Tanpa Batas)</h3>
+
+<svg id="svg" width="400" height="200" style="border:1px solid black"></svg>
+
+<script>
+  // DATA (bebas, besar kecil tidak masalah)
+  const data = [20,100,50,1000];
+
+  const svg = document.getElementById("svg");
+
+  let d = "";
+
+  data.forEach((nilai, i) => {
+    const x = i * 10;        // jarak antar titik
+    const y = 200 - nilai;  // nilai besar = naik
+
+    d += i === 0 ? `M ${x} ${y}` : `L ${x} ${y}`;
+  });
+
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("d", d);
+  path.setAttribute("stroke", "blue");
+  path.setAttribute("fill", "none");
+
+  svg.appendChild(path);
+</script>
+
+</body>
+</html>

@@ -23,13 +23,24 @@
   </div>
   <br>
 
-  <button onclick="pilihKoneksi('train')">Train</button>
-  <button onclick="pilihKoneksi('plane')">Plane</button>
-  <button onclick="pilihKoneksi('bus')">Bus</button>
+ <select name="" id="kendaraanPilihan">
+  <option value="bus">Bus</option>
+  <option value="train">Train</option>
+  <option value="plane">Plane</option>
+  
+ </select>
+ 
+ 
+ <button onclick="postGaris()">Tambah pinPoint</button>
 </div>
 
-    <svg id="map" class="map" viewBox="200 -40 400 400"  xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg">
+    
+
+<svg id="map" class="map" viewBox="200 -40 400 400"  xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg">
+<!-- <line x1="10" y1="10" x2="100000" y2="10000" stroke="red" stroke-width="2" /> -->
+
   <style>
+    
     .area path {
       fill: #FEFEEB;
       stroke: #1F78B4;
@@ -85,7 +96,7 @@
   </g>
   
  
-  
+  <g id="connect"></g>
 <g class="pin" id="pin">
     
     

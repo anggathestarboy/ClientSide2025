@@ -3,6 +3,7 @@ let inputan = document.getElementById("inputan");
 let area = document.getElementById("area");
 let inputLokasi = document.getElementById("inputLokasi");
 let tampilanKoneksi = document.getElementById("tampilanKoneksi");
+let connect = document.getElementById("connect");
 let scale = 1;
 let startX = 0;
 let startY = 0;
@@ -18,16 +19,29 @@ let tampilanPin = document.getElementById("pin");
       
       
       //Yang mau dipelajari
-let mode = "normal";
-let sourcePin = null;
-let targetPin = null;
+// let mode = "normal";
+// let sourcePin = null;
+// let targetPin = null;
 
-let koneksi = JSON.parse(localStorage.getItem('koneksi')) || [];
+// let koneksi = JSON.parse(localStorage.getItem('koneksi')) || [];
 
+// let kendaraan = {
+//     train: {color: "orange"},
+//     plane: {color: "purple"},
+//     bus: {color: "red"},
+// }
+
+
+let mode = "normal"
+
+let pinSatu = null;
+let pinDua = null;
+
+let koneksi = JSON.parse(localStorage.getItem("koneksi")) || [];
 let kendaraan = {
     train: {color: "orange"},
-    plane: {color: "purple"},
     bus: {color: "red"},
+    plane: {color: "purple"}
 }
 
 
@@ -160,17 +174,30 @@ function drawPin() {
         g.setAttribute("transform", `translate(${p.x},${p.y} )`)
         
         
-        g.addEventListener("click", () => {
+        // g.addEventListener("click", () => {
+        //     if (mode === "normal") {
+        //         sourcePin = p
+        //         mode = "terkoneksi"
+        //     }
+            
+            
+        //     if (mode === "terkoneksi" && p.id !== sourcePin.id) {
+        //         targetPin = p;
+        //         openKoneksi();
+                
+        //     }
+        // })
+        
+        
+        g.addEventListener("mousedown", (e) => {
             if (mode === "normal") {
-                sourcePin = p
+                pinSatu = p
                 mode = "terkoneksi"
             }
             
-            
-            if (mode === "terkoneksi" && p.id !== sourcePin.id) {
-                targetPin = p;
+            if (mode === "terkoneksi" && p.id !== pinSatu.id) {
+                pinDua = p
                 openKoneksi();
-                
             }
         })
         
@@ -220,8 +247,8 @@ function drawPin() {
     
    
 }
-
-
+let garisPilihan;
+let kendaraanPilihan = document.getElementById("kendaraanPilihan");
 
 function openKoneksi() {
         
@@ -230,57 +257,59 @@ function openKoneksi() {
 
 
 function closeKoneksi() {
-    tampilanKoneksi.style.display = "none";
-    mode = "normal";
-    sourcePin = null;
-    targetPin = null;
+    tampilanKoneksi.style.display = "none"
+    mode = "normal"
+    pinSatu = null
+    pinDua = null
 }
 
 
-function pilihKoneksi(jenis) {
-
-
+function postGaris() {  
     koneksi.push({
         id: Date.now(),
-        from: sourcePin.id,
-        to: targetPin.id,
-        type: jenis
-    });
-
+        pinAsal: pinSatu.id,
+        pinTarget: pinDua.id,
+        jenis: kendaraanPilihan.value
+        
+    })
+    
     localStorage.setItem("koneksi", JSON.stringify(koneksi));
-
-  closeKoneksi();
-
-    drawKoneksi();
+    closeKoneksi();
+    drawKoneksi()
 }
-
 
 
 function drawKoneksi() {
     
-
-    koneksi.forEach(k => {
-        let a = allPin.find(p => p.id === k.from);
-        let b = allPin.find(p => p.id === k.to);
-
-        let line = document.createElementNS(URL_SVG, "line");
-        line.setAttribute("x1", a.x);
-        line.setAttribute("y1", a.y);
-        line.setAttribute("x2", b.x);
-        line.setAttribute("y2", b.y);
-
-        line.setAttribute("stroke", kendaraan[k.type].color);
-        line.setAttribute("stroke-width", 2);
-        line.setAttribute("class", "lineKoneksi");
-
-        
-        tampilanPin.insertBefore(line, tampilanPin.firstChild);
-    });
+    koneksi.map((k) => {
+    let a = allPin.find(p => p.id === k.pinAsal);
+    let b = allPin.find(p => p.id === k.pinTarget);
+        console.log(a)
+    
+    let line = document.createElementNS(URL_SVG, "line");
+    line.setAttribute("x1", a.x);
+    line.setAttribute("y1", a.y);
+    line.setAttribute("y2", b.y);
+    line.setAttribute("x2", b.x);
+    line.setAttribute("stroke", kendaraan[k.jenis].color)
+   
+    
+ connect.appendChild(line)
+ 
+ 
+    
+    
+    })
+    
+    
+    
+   
+    
 }
 
-
-drawPin();
 drawKoneksi();
+drawPin();
+
 
 
 
