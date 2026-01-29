@@ -238,7 +238,7 @@ function closeKoneksi() {
 
 
 function pilihKoneksi(jenis) {
-    if (!sourcePin || !targetPin) return;
+
 
     koneksi.push({
         id: Date.now(),
@@ -249,10 +249,7 @@ function pilihKoneksi(jenis) {
 
     localStorage.setItem("koneksi", JSON.stringify(koneksi));
 
-    tampilanKoneksi.style.display = "none";
-    mode = "normal";
-    sourcePin = null;
-    targetPin = null;
+  closeKoneksi();
 
     drawKoneksi();
 }
@@ -260,12 +257,11 @@ function pilihKoneksi(jenis) {
 
 
 function drawKoneksi() {
-    document.querySelectorAll(".lineKoneksi").forEach(l => l.remove());
+    
 
     koneksi.forEach(k => {
         let a = allPin.find(p => p.id === k.from);
         let b = allPin.find(p => p.id === k.to);
-        if (!a || !b) return;
 
         let line = document.createElementNS(URL_SVG, "line");
         line.setAttribute("x1", a.x);
@@ -277,7 +273,7 @@ function drawKoneksi() {
         line.setAttribute("stroke-width", 2);
         line.setAttribute("class", "lineKoneksi");
 
-        // taruh di belakang pin
+        
         tampilanPin.insertBefore(line, tampilanPin.firstChild);
     });
 }

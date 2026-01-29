@@ -8,6 +8,14 @@
 </head>
 <body>
     
+    <div class="inputan" id="inputan">
+        <div class="atas">
+        <p>Input pinpoint</p>
+            <button onclick="closeModal()" class="tutup">X</button>
+        </div><br>
+    <input type="text" placeholder="Input location name" name="" id="inputLokasi">
+</div>
+
 <div class="inputan" id="tampilanKoneksi" style="display:none">
   <div class="atas">
     <p>Pilih Koneksi</p>
@@ -20,19 +28,6 @@
   <button onclick="pilihKoneksi('bus')">Bus</button>
 </div>
 
-
-
-
-<div class="tampilanKoneksi" id="tampilanKoneksi" style="display: none;">
-    <select name="" id="koneksiPilihan">
-        <option value="plane">Plane</option>
-        <option value="bus">Bus</option>
-        <option value="train">Train</option>
-    </select>
-    <input type="number" placeholder="Kilometer" name="" id="">
-    
-    <button>Submit</button>
-</div>
     <svg id="map" class="map" viewBox="200 -40 400 400"  xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg">
   <style>
     .area path {
