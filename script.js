@@ -2,6 +2,7 @@ let map = document.getElementById("map");
 let inputan = document.getElementById("inputan");
 let area = document.getElementById("area");
 let inputLokasi = document.getElementById("inputLokasi");
+let tampilanKoneksi = document.getElementById("tampilanKoneksi");
 let scale = 1;
 let startX = 0;
 let startY = 0;
@@ -11,6 +12,24 @@ let pin = {x: 0, y:0}
 let URL_SVG = "http://www.w3.org/2000/svg"
 let tampilanPin = document.getElementById("pin");
       let allPin = JSON.parse(localStorage.getItem("allPin")) || [];
+      
+      
+      
+      
+      
+      //Yang mau dipelajari
+let mode = "normal";
+let sourcePin = null;
+let targetPin = null;
+
+let koneksi = JSON.parse(localStorage.getItem('koneksi')) || [];
+
+let kendaraan = {
+    train: {color: "orange"},
+    plane: {color: "purple"},
+    bus: {color: "red"},
+}
+
 
 function zoom() {
     map.style.transform = `translate(${posisi.x}px, ${posisi.y}px) scale(${scale})`
@@ -140,12 +159,44 @@ function drawPin() {
         let g = document.createElementNS(URL_SVG, 'g');
         g.setAttribute("transform", `translate(${p.x},${p.y} )`)
         
+        
+        g.addEventListener("click", () => {
+            if (mode === "normal") {
+                sourcePin = p
+                mode = "terkoneksi"
+            }
+            
+            
+            if (mode === "terkoneksi" && p.id !== sourcePin.id) {
+                targetPin = p;
+                openKoneksi();
+                
+            }
+        })
+        
         let teks = document.createElementNS(URL_SVG, "text")
         teks.textContent = p.name
         teks.setAttribute("font-size", 7)
         teks.setAttribute("class", "teksAtas")
-        teks.setAttribute("transform", "translate(-7,-25)")
+        // teks.setAttribute("transform", "translate(-7,-25)")
+        teks.setAttribute("text-anchor", "middle")
+        teks.setAttribute("y", "-23")
         teks.setAttribute("fill", "black")
+        
+        let deleteBtn = document.createElementNS(URL_SVG, "text");
+        deleteBtn.textContent = "Delete"
+        deleteBtn.setAttribute("class", "deleteBtn")
+        
+        
+        
+       
+        deleteBtn.addEventListener("mousedown", (e) => {
+            
+              allPin = allPin.filter(item => item.id !== p.id)
+            localStorage.setItem("allPin", JSON.stringify(allPin));
+            console.log("hello")
+           window.location.reload()
+        })
      
         let circle = document.createElementNS(URL_SVG, "circle");
         circle.setAttribute("cx", 12)
@@ -161,6 +212,7 @@ function drawPin() {
       `translate(${-12}, ${-22})`
     );
     g.appendChild(pins);
+    g.appendChild(deleteBtn);
     g.appendChild(teks);
     g.appendChild(circle);
     tampilanPin.appendChild(g)
@@ -170,7 +222,72 @@ function drawPin() {
 }
 
 
+
+function openKoneksi() {
+        
+    tampilanKoneksi.style.display = "block"
+}
+
+
+function closeKoneksi() {
+    tampilanKoneksi.style.display = "none";
+    mode = "normal";
+    sourcePin = null;
+    targetPin = null;
+}
+
+
+function pilihKoneksi(jenis) {
+    if (!sourcePin || !targetPin) return;
+
+    koneksi.push({
+        id: Date.now(),
+        from: sourcePin.id,
+        to: targetPin.id,
+        type: jenis
+    });
+
+    localStorage.setItem("koneksi", JSON.stringify(koneksi));
+
+    tampilanKoneksi.style.display = "none";
+    mode = "normal";
+    sourcePin = null;
+    targetPin = null;
+
+    drawKoneksi();
+}
+
+
+
+function drawKoneksi() {
+    document.querySelectorAll(".lineKoneksi").forEach(l => l.remove());
+
+    koneksi.forEach(k => {
+        let a = allPin.find(p => p.id === k.from);
+        let b = allPin.find(p => p.id === k.to);
+        if (!a || !b) return;
+
+        let line = document.createElementNS(URL_SVG, "line");
+        line.setAttribute("x1", a.x);
+        line.setAttribute("y1", a.y);
+        line.setAttribute("x2", b.x);
+        line.setAttribute("y2", b.y);
+
+        line.setAttribute("stroke", kendaraan[k.type].color);
+        line.setAttribute("stroke-width", 2);
+        line.setAttribute("class", "lineKoneksi");
+
+        // taruh di belakang pin
+        tampilanPin.insertBefore(line, tampilanPin.firstChild);
+    });
+}
+
+
 drawPin();
+drawKoneksi();
+
+
+
 
 
 

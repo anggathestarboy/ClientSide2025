@@ -8,14 +8,31 @@
 </head>
 <body>
     
-    <div class="inputan" id="inputan">
-        <div class="atas">
-        <p>Input pinpoint</p>
-            <button onclick="closeModal()" class="tutup">X</button>
-        </div><br>
-    <input type="text" placeholder="Input location name" name="" id="inputLokasi">
+<div class="inputan" id="tampilanKoneksi" style="display:none">
+  <div class="atas">
+    <p>Pilih Koneksi</p>
+    <button onclick="closeKoneksi()" class="tutup">X</button>
+  </div>
+  <br>
+
+  <button onclick="pilihKoneksi('train')">Train</button>
+  <button onclick="pilihKoneksi('plane')">Plane</button>
+  <button onclick="pilihKoneksi('bus')">Bus</button>
 </div>
 
+
+
+
+<div class="tampilanKoneksi" id="tampilanKoneksi" style="display: none;">
+    <select name="" id="koneksiPilihan">
+        <option value="plane">Plane</option>
+        <option value="bus">Bus</option>
+        <option value="train">Train</option>
+    </select>
+    <input type="number" placeholder="Kilometer" name="" id="">
+    
+    <button>Submit</button>
+</div>
     <svg id="map" class="map" viewBox="200 -40 400 400"  xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg">
   <style>
     .area path {
@@ -72,9 +89,11 @@
   <path d="m 404.56571,47.287885 -0.48,0.67 -0.67,-0.01 -3.11,-1.24 2.23,-0.3 2.03,0.88 z m -59.64,-4.6 1.21,1.58 0.98,3.06 0.06,0.74 -0.18,0.49 0.12,2.15 0.25,0.37 1.05,0.8 0.12,0.92 -0.31,0.12 -2.15,-0.49 -2.03,-0.73 -0.74,-3.31 -0.43,-1.23 -0.18,-2.15 0.24,-0.71 0,0 0.29,0.24 0.2,-0.08 1.09,-0.8 0.41,-0.97 z m -2.74,0.01 -0.13,0.26 0.63,-0.1 0.03,0.14 0,0 -0.45,0.85 -0.37,0.31 -0.49,0.18 -1.6,0.18 -1.11,1.1 -0.06,0.43 0.98,4.84 0.31,0.31 0.06,1.16 -0.98,3.49 -1.23,1.35 -1.29,0.73 -0.55,0.06 -0.25,-0.25 -0.06,-0.36 -1.23,-1.41 -2.52,-2.14 -1.11,-1.23 -0.25,-1.72 -1.54,-2.08 -1.91,-0.72 0,0 1.1,-0.01 0.4,0.19 1.69,-0.24 3.8,-1.65 0.43,-0.28 2.1,-2.16 1.22,-0.92 3.06,-1.91 2.19,-0.88 0.5,-0.1 0.5,0.1 0.1,0.15 -1.97,2.33 z" title="Brunei Darussalam" id="BN"/>
   </g>
   
-
+ 
   
 <g class="pin" id="pin">
+    
+    
     
 </g>
 

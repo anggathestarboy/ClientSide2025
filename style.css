@@ -57,3 +57,16 @@ svg {
     /* transform: scale(10); */
     background: red;
 }
+
+.deleteBtn {
+    font-size: 4px;
+    transform: translate(15px, -24px);
+   font-style:oblique;
+}
+
+.tampilanKoneksi {
+    background: white;
+    transform: translate(100px, 100px);
+    z-index: 1000;
+    max-width: 100px;
+}
